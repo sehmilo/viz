@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey in Perspective</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #1c1c28;
+            --surface: #252532;
+            --accent: #ff5e5b;
+            --accent-alt: #39ff14;
+            --text: #ffffff;
+            --text-muted: #8e8e9a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 60px 40px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .comparison-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 30px;
+        }
+
+        .comparison-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .comparison-item {
+            display: grid;
+            grid-template-columns: 1fr 3fr 100px;
+            align-items: center;
+            gap: 25px;
+            background: var(--surface);
+            padding: 25px 30px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comparison-item.highlight {
+            background: linear-gradient(135deg, rgba(255, 94, 91, 0.15), rgba(255, 94, 91, 0.05));
+            border: 2px solid var(--accent);
+        }
+
+        .comparison-item.highlight::before {
+            content: 'THIS JOURNEY';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 9px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            color: var(--accent);
+            background: rgba(255, 94, 91, 0.2);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .item-icon {
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-name {
+            font-family: 'Fraunces', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .item-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .item-bar-container {
+            position: relative;
+        }
+
+        .item-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .item-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .comparison-item.highlight .item-bar-fill {
+            background: var(--accent);
+        }
+
+        .item-bar-fill {
+            background: var(--text-muted);
+        }
+
+        .item-value {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-align: right;
+        }
+
+        .comparison-item.highlight .item-value {
+            color: var(--accent);
+        }
+
+        .fun-facts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 60px;
+        }
+
+        .fact-card {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .fact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .fact-value {
+            font-family: 'Fraunces', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--accent-alt);
+            margin-bottom: 10px;
+        }
+
+        .fact-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .equivalents {
+            margin-top: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, var(--surface), transparent);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .equivalents-title {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        .equivalents-grid {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .equivalent-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .equivalent-number {
+            font-family: 'Fraunces', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent);
+        }
+
+        .equivalent-text {
+            text-align: left;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .comparison-item {
+                grid-template-columns: 60px 1fr;
+                gap: 15px;
+            }
+            .item-bar-container {
+                grid-column: span 2;
+            }
+            .fun-facts {
+                grid-template-columns: 1fr;
+            }
+            .equivalents-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Putting It In Perspective</h1>
+            <p>How does this journey compare to other epic distances?</p>
+        </header>
+
+        <div class="comparison-section">
+            <h2 class="section-title">Distance Comparison</h2>
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <span class="item-icon">🌍</span>
+                    <div class="item-info">
+                        <h3 class="item-name">Earth's Circumference</h3>
+                        <p class="item-desc">Distance around the equator</p>
+                    </div>
+                    <div class="item-bar-container">
+                        <div class="item-bar">
+                            <div class="item-bar-fill" style="width: 100%;"></div>
+                        </div>
+                        <p class="item-value">40,075 km</p>
+                    </div>
+                </div>
+
+                <div class="comparison-item highlight">
+                    <span class="item-icon">🚗</span>
+                    <div class="item-info">
+                        <h3 class="item-name">Bangalore → John O'Groats</h3>
+                        <p class="item-desc">Your epic overland journey</p>
+                    </div>
+                    <div class="item-bar-container">
+                        <div class="item-bar">
+                            <div class="item-bar-fill" style="width: 63%;"></div>
+                        </div>
+                        <p class="item-value">25,400 km</p>
+                    </div>
+                </div>
+
+                <div class="comparison-item">
+                    <span class="item-icon">🛤️</span>
+                    <div class="item-info">
+                        <h3 class="item-name">Trans-Siberian Railway</h3>
+                        <p class="item-desc">Moscow to Vladivostok</p>
+                    </div>
+                    <div class="item-bar-container">
+                        <div class="item-bar">
+                            <div class="item-bar-fill" style="width: 23%;"></div>
+                        </div>
+                        <p class="item-value">9,289 km</p>
+                    </div>
+                </div>
+
+                <div class="comparison-item">
+                    <span class="item-icon">🗽</span>
+                    <div class="item-info">
+                        <h3 class="item-name">NYC to Los Angeles</h3>
+                        <p class="item-desc">Classic American road trip</p>
+                    </div>
+                    <div class="item-bar-container">
+                        <div class="item-bar">
+                            <div class="item-bar-fill" style="width: 11%;"></div>
+                        </div>
+                        <p class="item-value">4,500 km</p>
+                    </div>
+                </div>
+
+                <div class="comparison-item">
+                    <span class="item-icon">🇬🇧</span>
+                    <div class="item-info">
+                        <h3 class="item-name">Land's End to John O'Groats</h3>
+                        <p class="item-desc">Classic UK end-to-end</p>
+                    </div>
+                    <div class="item-bar-container">
+                        <div class="item-bar">
+                            <div class="item-bar-fill" style="width: 4%;"></div>
+                        </div>
+                        <p class="item-value">1,407 km</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fun-facts">
+            <div class="fact-card">
+                <div class="fact-icon">🏃</div>
+                <div class="fact-value">604</div>
+                <div class="fact-label">Full marathons<br>(42.195 km each)</div>
+            </div>
+            <div class="fact-card">
+                <div class="fact-icon">🚶</div>
+                <div class="fact-value">~5,080</div>
+                <div class="fact-label">Hours of walking<br>(at 5 km/h)</div>
+            </div>
+            <div class="fact-card">
+                <div class="fact-icon">✈️</div>
+                <div class="fact-value">28x</div>
+                <div class="fact-label">Delhi-Mumbai flights<br>(908 km)</div>
+            </div>
+        </div>
+
+        <div class="equivalents">
+            <h3 class="equivalents-title">Your Journey Equals...</h3>
+            <div class="equivalents-grid">
+                <div class="equivalent-item">
+                    <span class="equivalent-number">63%</span>
+                    <span class="equivalent-text">of Earth's<br>circumference</span>
+                </div>
+                <div class="equivalent-item">
+                    <span class="equivalent-number">2.7x</span>
+                    <span class="equivalent-text">Trans-Siberian<br>Railway</span>
+                </div>
+                <div class="equivalent-item">
+                    <span class="equivalent-number">18x</span>
+                    <span class="equivalent-text">Land's End to<br>John O'Groats</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
